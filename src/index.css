@@ -1,0 +1,141 @@
+/* --- Global Styles for the Entire Application --- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+/* --- CSS Variables --- */
+:root {
+    --pink-50: #fdf2f8;
+    --pink-400: #f472b6;
+    --pink-500: #ec4899;
+    --pink-600: #db2777;
+    --yellow-400: #facc15;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-400: #9ca3af;
+    --gray-500: #6b7280;
+    --gray-600: #4b5563;
+    --gray-700: #374151;
+    --gray-800: #1f2937;
+    --gray-900: #111827;
+    --white: #ffffff;
+    --black: #000000;
+}
+
+/* --- Base & Reset --- */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--pink-50);
+    color: var(--gray-800);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    animation: fadeIn 1s ease-out;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+html.dark body {
+    background-color: var(--gray-900);
+    color: var(--gray-200);
+}
+
+::selection {
+    background-color: var(--pink-500);
+    color: var(--white);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Utility Classes --- */
+.hidden { display: none !important; }
+.opacity-0 { opacity: 0; }
+.container {
+    width: 100%;
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+.highlight { color: var(--pink-600); }
+html.dark .highlight { color: var(--pink-400); }
+
+/* --- General Button Styles --- */
+.btn { padding: 0.6rem 1.25rem; border-radius: 0.5rem; font-weight: 600; border: 2px solid transparent; cursor: pointer; transition: all 0.2s ease; text-decoration: none; }
+.btn-primary { background-color: var(--pink-500); border-color: var(--pink-500); color: white; }
+.btn-primary:hover { background-color: var(--pink-600); }
+.btn-secondary { background-color: var(--white); border-color: var(--black); color: var(--gray-800); }
+.btn-secondary:hover { background-color: #f3f4f6; }
+html.dark .btn-secondary { background-color: var(--gray-700); border-color: var(--gray-600); color: var(--gray-200); }
+html.dark .btn-secondary:hover { background-color: var(--gray-600); }
+.btn-gradient { background-image: linear-gradient(to right, var(--pink-500), var(--yellow-400)); color: white; font-size: 1.125rem; font-weight: 700; padding: 1rem 2.5rem; border-radius: 0.75rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1); }
+.btn-gradient:hover { opacity: 0.9; transform: scale(1.05); }
+.theme-toggle-btn { padding: 0.5rem; border-radius: 0.5rem; background-color: transparent; border: none; cursor: pointer; transition: background-color 0.2s; }
+.theme-toggle-btn:hover { background-color: #f3f4f6; }
+html.dark .theme-toggle-btn:hover { background-color: var(--gray-700); }
+.theme-toggle-btn .icon { width: 1.25rem; height: 1.25rem; color: var(--gray-700); }
+html.dark .theme-toggle-btn .icon { color: var(--gray-300); }
+
+/* --- Toast Notifications --- */
+#toast-container {
+    position: fixed;
+    top: 80px;
+    right: 1.5rem;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+/* ... (остальные стили для toast) */
+
+/* --- Main Content Layout --- */
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 6rem 1rem 2rem;
+}
+.hero { max-width: 48rem; margin: 0 auto; }
+.hero-title { font-size: 2.5rem; font-weight: 800; line-height: 1.2; color: var(--gray-900); }
+html.dark .hero-title { color: var(--white); }
+.hero-subtitle { margin-top: 1rem; margin-bottom: 1.5rem; font-size: 1rem; color: var(--gray-600); }
+html.dark .hero-subtitle { color: var(--gray-400); }
+.cta-button { display: inline-block; }
+
+/* --- General Section & Card Styles --- */
+.features-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; margin-top: 4rem; width: 100%; max-width: 72rem; }
+.feature-card { background-color: var(--white); padding: 1.5rem; border-radius: 1rem; border: 2px solid var(--black); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1); transition: all 0.3s ease; }
+.feature-card:hover { transform: scale(1.05); }
+html.dark .feature-card { background-color: var(--gray-800); border-color: var(--gray-600); }
+/* ... (остальные стили для секций, карточек и футера) */
+
+/* --- Footer --- */
+.site-footer-bottom { margin-top: auto; background-color: rgba(255, 255, 255, 0.5); padding: 1.5rem 0; text-align: center; font-size: 0.875rem; color: var(--gray-500); transition: background-color 0.3s ease; }
+html.dark .site-footer-bottom { background-color: rgba(31, 41, 55, 0.5); color: var(--gray-400); }
+.footer-highlight { font-weight: 600; color: var(--gray-800); }
+html.dark .footer-highlight { color: var(--gray-200); }
+
+/* --- Responsive Layout Adjustments --- */
+@media (min-width: 768px) {
+    .container {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+    .main-content {
+        padding-top: 10rem;
+    }
+    .hero-title { font-size: 3.75rem; }
+    .hero-subtitle { font-size: 1.25rem; }
+    .features-grid { grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+    .feature-card { padding: 2rem; }
+}

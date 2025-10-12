@@ -1,0 +1,45 @@
+.faq-item {
+    border-bottom: 2px solid var(--gray-300);
+}
+html.dark .faq-item {
+    border-color: var(--gray-700);
+}
+.faq-question {
+    width: 100%;
+    padding: 1.5rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.125rem;
+    font-weight: 600;
+    text-align: left;
+    color: var(--gray-900);
+}
+html.dark .faq-question {
+    color: var(--gray-200);
+}
+.faq-question svg {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.3s ease;
+    flex-shrink: 0; /* Предотвращает сжатие иконки */
+}
+.faq-question.active svg {
+    transform: rotate(180deg);
+}
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out;
+}
+.faq-answer p {
+    padding: 0 0 1.5rem 0;
+    color: var(--gray-600);
+    line-height: 1.7;
+}
+html.dark .faq-answer p {
+    color: var(--gray-400);
+}

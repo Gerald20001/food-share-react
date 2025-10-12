@@ -1,0 +1,29 @@
+.map-page-container {
+    /* Мы убираем padding из .main-content, чтобы карта была на всю высоту */
+    width: 100vw;
+    height: calc(100vh - 64px); /* 100% высоты минус шапка */
+    margin-top: 64px; /* Отступ от шапки */
+    display: flex;
+    position: fixed; /* Фиксируем, чтобы страница не скроллилась */
+    top: 0;
+    left: 0;
+}
+
+.filters-panel {
+    width: 300px;
+    padding: 1.5rem;
+    background-color: var(--white);
+    border-right: 1px solid var(--gray-300);
+    overflow-y: auto;
+    z-index: 20; /* Чтобы был над картой */
+}
+
+html.dark .filters-panel {
+    background-color: var(--gray-800);
+    border-color: var(--gray-700);
+}
+
+.filters-panel h2 { font-size: 1.25rem; margin-bottom: 1.5rem; }
+.filter-group { margin-bottom: 1.5rem; }
+.filter-group label { display: block; font-weight: 500; margin-bottom: 0.5rem; }
+.filter-group input, .filter-group select { width: 100%; padding: 0.5rem; border-radius: 0.5rem; border: 1px solid var(--gray-400); }

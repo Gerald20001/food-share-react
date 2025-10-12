@@ -1,0 +1,104 @@
+/* --- Стили для компонента Header --- */
+.site-header {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 40;
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+html.dark .site-header { background-color: rgba(31, 41, 55, 0.8); }
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 64px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    transition: opacity 0.2s;
+}
+.logo:hover { opacity: 0.9; }
+.logo-img { width: 2.25rem; height: 2.25rem; object-fit: cover; border-radius: 50%; margin-right: 0.5rem; }
+.logo-text { font-size: 1.25rem; font-weight: 700; letter-spacing: -0.025em; color: var(--gray-900); }
+html.dark .logo-text { color: var(--white); }
+
+/* --- Mobile Navigation --- */
+.hamburger-btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 2rem;
+    height: 2rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 50;
+}
+.hamburger-btn span {
+    width: 2rem;
+    height: 0.25rem;
+    background: var(--gray-800);
+    border-radius: 10px;
+    transition: all 0.3s linear;
+    position: relative;
+    transform-origin: 1px;
+}
+html.dark .hamburger-btn span { background: var(--white); }
+
+.main-nav {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    background: var(--white);
+    height: 100vh;
+    width: 100%;
+    text-align: left;
+    padding: 2rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transition: transform 0.3s ease-in-out;
+    transform: translateX(100%);
+    z-index: 45;
+}
+html.dark .main-nav { background: var(--gray-800); }
+.main-nav.nav-open { transform: translateX(0); }
+.main-nav a { font-size: 1.5rem; text-decoration: none; color: var(--gray-700); transition: color 0.3s ease; }
+html.dark .main-nav a { color: var(--gray-300); }
+.main-nav a:hover { color: var(--pink-600); }
+html.dark .main-nav a:hover { color: var(--pink-400); }
+
+/* --- Responsive Design for Header --- */
+@media (min-width: 768px) {
+    .hamburger-btn {
+        display: none;
+    }
+    .main-nav {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 1.5rem;
+        background: transparent;
+        height: auto;
+        width: auto;
+        position: static;
+        padding: 0;
+        transform: translateX(0);
+    }
+    html.dark .main-nav { background: transparent; }
+    .main-nav a { font-size: 0.875rem; }
+}
+
+.profile-menu { display: flex; align-items: center; gap: 1rem; }
+.profile-avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 2px solid var(--pink-500); cursor: pointer; }

@@ -1,0 +1,490 @@
+/* --- Стили для секций на главной странице --- */
+
+/* --- Секция Hero --- */
+.hero { max-width: 48rem; margin: 0 auto; }
+.hero-title { font-size: 2.5rem; font-weight: 800; line-height: 1.2; color: var(--gray-900); }
+html.dark .hero-title { color: var(--white); }
+.hero-subtitle { margin-top: 1rem; margin-bottom: 1.5rem; font-size: 1rem; color: var(--gray-600); }
+html.dark .hero-subtitle { color: var(--gray-400); }
+.cta-button { display: inline-block; }
+
+/* --- Секция Features --- */
+.features-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; margin-top: 4rem; width: 100%; max-width: 72rem; }
+
+/* --- Общий стиль для всех секций контента --- */
+.content-section {
+    width: 100%;
+    max-width: 1100px;
+    margin: 4rem auto;
+    padding: 0 1rem;
+    text-align: center;
+}
+.section-title {
+    font-size: 2.25rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+.section-subtitle {
+    font-size: 1.125rem;
+    color: var(--gray-500);
+    max-width: 600px;
+    margin: 0 auto 3rem auto;
+}
+html.dark .section-subtitle { color: var(--gray-400); }
+
+/* --- Стили для конкретных секций --- */
+.mission-section { background-color: var(--white); border: 2px solid var(--black); padding: 3rem 1.5rem; border-radius: 1.5rem; }
+html.dark .mission-section { background-color: var(--gray-800); border-color: var(--gray-600); }
+.mission-text { font-size: 1.25rem; line-height: 1.8; max-width: 800px; margin: 0 auto; color: var(--gray-700); }
+html.dark .mission-text { color: var(--gray-300); }
+
+.steps-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; counter-reset: steps-counter; }
+.step-card { position: relative; padding: 2rem; background-color: var(--white); border: 2px solid var(--black); border-radius: 1rem; text-align: left; }
+html.dark .step-card { background-color: var(--gray-800); border-color: var(--gray-600); }
+.step-card::before { counter-increment: steps-counter; content: "0" counter(steps-counter); position: absolute; top: 1.5rem; right: 1.5rem; font-size: 3rem; font-weight: 800; color: var(--gray-200); }
+html.dark .step-card::before { color: var(--gray-700); }
+.step-title { font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem; }
+.step-description { color: var(--gray-600); }
+html.dark .step-description { color: var(--gray-400); }
+
+.user-types-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; }
+.user-type-card { padding: 2rem; border: 2px solid var(--black); border-radius: 1rem; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.user-type-card:hover { transform: translateY(-5px); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); }
+html.dark .user-type-card { border-color: var(--gray-600); }
+.user-type-card h3 { font-size: 1.5rem; margin-bottom: 1rem; }
+.user-type-card ul { list-style-position: inside; text-align: left; margin-bottom: 2rem; color: var(--gray-600); }
+html.dark .user-type-card ul { color: var(--gray-400); }
+
+.testimonials-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; text-align: left; }
+.testimonial-card { padding: 1.5rem; background-color: var(--white); border: 2px solid var(--black); border-radius: 1rem; }
+/* ... и так далее, все остальные стили из landing-page.css ... */
+
+.cta-banner { background-image: linear-gradient(to right, var(--pink-500), var(--yellow-400)); padding: 4rem 1rem; text-align: center; border-radius: 1.5rem; margin: 4rem auto; max-width: 1100px; color: var(--white); }
+.cta-title { font-size: 2.25rem; font-weight: 700; margin-bottom: 1rem; }
+.cta-description { font-size: 1.125rem; margin-bottom: 2rem; }
+.cta-buttons { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+.cta-buttons .btn:hover { transform: scale(1.05); }
+
+.faq-container { max-width: 800px; margin: 0 auto; text-align: left; }
+/* ... остальные стили ... */
+
+/* --- Responsive Design --- */
+@media (min-width: 768px) {
+    .hero-title { font-size: 3.75rem; }
+    .hero-subtitle { font-size: 1.25rem; }
+    .features-grid { grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+    .steps-grid { grid-template-columns: repeat(3, 1fr); }
+    .user-types-grid { grid-template-columns: 1fr 1fr; }
+}
+ @media (min-width: 1024px) {
+    .testimonials-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* --- СТИЛІ ДЛЯ СЕКЦІЇ "SUCCESS STORIES" (ВІДГУКИ) --- */
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    text-align: left;
+}
+
+.testimonial-card {
+    padding: 1.5rem;
+    background-color: var(--white);
+    border: 2px solid var(--black);
+    border-radius: 1rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+html.dark .testimonial-card {
+    background-color: var(--gray-800);
+    border-color: var(--gray-600);
+}
+
+.testimonial-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.story-image {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.story-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.testimonial-quote {
+    font-style: italic;
+    color: var(--gray-600);
+    margin-bottom: 1rem;
+}
+html.dark .testimonial-quote {
+    color: var(--gray-400);
+}
+
+.testimonial-author {
+    display: flex;
+    align-items: center;
+}
+
+.testimonial-author img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 0.75rem;
+}
+
+.author-name {
+    font-weight: 600;
+}
+.author-role {
+    font-size: 0.875rem;
+    color: var(--gray-500);
+}
+
+/* Адаптивность для больших экранов */
+@media (min-width: 1024px) {
+    .testimonials-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* --- СТИЛІ ДЛЯ СЕКЦІЇ "PARTNERS" --- */
+
+.partners-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+.partner-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.partner-logo {
+    height: 40px;
+    opacity: 0.6;
+    filter: grayscale(100%);
+    transition: all 0.3s ease;
+}
+.partner-logo:hover {
+    opacity: 1;
+    filter: grayscale(0%);
+}
+html.dark .partner-logo {
+    filter: grayscale(100%) invert(1);
+    opacity: 0.5;
+}
+html.dark .partner-logo:hover {
+    filter: grayscale(0%) invert(0);
+    opacity: 1;
+}
+
+.partner-description {
+    font-size: 0.875rem;
+    color: var(--gray-500);
+    margin-top: 0.5rem;
+}
+html.dark .partner-description {
+    color: var(--gray-400);
+}
+
+/* --- СТИЛІ ДЛЯ СЕКЦІЇ "OUR IMPACT" (СТАТИСТИКА) --- */
+.impact-section {
+    background-color: var(--white);
+    padding: 4rem 1rem;
+    border-radius: 1.5rem;
+    border: 2px solid var(--black);
+}
+html.dark .impact-section {
+    background-color: var(--gray-800);
+    border-color: var(--gray-600);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+.stats-grid .stat-item .stat-value {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--pink-600);
+    display: block; /* Убедимся, что это блочный элемент */
+}
+html.dark .stats-grid .stat-item .stat-value {
+    color: var(--pink-400);
+}
+.stats-grid .stat-item .stat-label {
+    font-size: 1rem;
+    color: var(--gray-500);
+}
+
+.progress-bar {
+    height: 8px;
+    background-color: var(--gray-200);
+    border-radius: 4px;
+    margin-top: 0.5rem;
+    overflow: hidden; /* Важно для скругления углов у вложенного элемента */
+}
+.progress-fill {
+    height: 100%;
+    background-color: var(--pink-500);
+    border-radius: 4px;
+}
+html.dark .progress-bar {
+    background-color: var(--gray-700);
+}
+html.dark .progress-fill {
+    background-color: var(--pink-400);
+}
+
+@media (min-width: 768px) {
+    .stats-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+
+/* --- СТИЛІ ДЛЯ СЕКЦІЇ "MAP" --- */
+.map-placeholder {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+.map-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 1rem;
+    margin-bottom: 1rem; /* Добавим отступ снизу */
+}
+
+.map-placeholder p {
+    color: var(--gray-500); /* Стилизуем текст под картой */
+}
+html.dark .map-placeholder p {
+    color: var(--gray-400);
+}
+
+/* --- СТИЛІ ДЛЯ СЕКЦІЇ "GET INVOLVED" --- */
+
+.get-involved-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+.involve-card {
+    padding: 2rem;
+    background-color: var(--white);
+    border: 2px solid var(--black);
+    border-radius: 1rem;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.involve-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+html.dark .involve-card {
+    background-color: var(--gray-800);
+    border-color: var(--gray-600);
+}
+
+.involve-card .feature-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.involve-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.involve-description {
+    color: var(--gray-600);
+    margin-bottom: 1.5rem;
+}
+html.dark .involve-description {
+    color: var(--gray-400);
+}
+
+@media (min-width: 768px) {
+    .get-involved-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+
+/* --- СТИЛІ ДЛЯ СЕКЦІЇ "BLOG" --- */
+
+.blog-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+.blog-card {
+    background-color: var(--white);
+    border: 2px solid var(--black);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: left; /* Важно для карточек блога */
+}
+html.dark .blog-card {
+    background-color: var(--gray-800);
+    border-color: var(--gray-600);
+}
+
+.blog-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.blog-image {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.blog-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.blog-excerpt {
+    color: var(--gray-600);
+    margin-bottom: 1rem;
+}
+html.dark .blog-excerpt {
+    color: var(--gray-400);
+}
+
+@media (min-width: 1024px) {
+    .blog-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.dashboard-header {
+    width: 100%;
+    max-width: 1100px; /* Совпадает с .content-section */
+    margin: 0 auto 2rem auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--gray-300);
+}
+html.dark .dashboard-header {
+    border-color: var(--gray-700);
+}
+
+.dashboard-header h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+}
+
+.dashboard-section {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.dashboard-section h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+.offers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Стили для пустого состояния */
+.empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 3rem 1.5rem;
+    background-color: #f9fafb;
+    border: 2px dashed var(--gray-300);
+    border-radius: 1rem;
+    margin-top: 1rem;
+}
+html.dark .empty-state {
+    background-color: var(--gray-700);
+    border-color: var(--gray-600);
+}
+.empty-state-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    display: inline-block;
+}
+.empty-state h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+.empty-state p {
+    color: var(--gray-500);
+    margin-bottom: 1.5rem;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+html.dark .empty-state p {
+    color: var(--gray-400);
+}
+
+.hero-title {
+  animation: slideInLeft 1s ease-out;
+}
+.hero-subtitle {
+  animation: slideInRight 1s ease-out 0.3s;
+  animation-fill-mode: both;
+}
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+.feature-card:hover, .step-card:hover, .user-type-card:hover, .testimonial-card:hover, .involve-card:hover, .blog-card:hover {
+  transform: translateY(-5px) rotate(1deg);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(135deg, var(--pink-50), var(--white));
+}
+html.dark .feature-card:hover, html.dark .step-card:hover, html.dark .user-type-card:hover, html.dark .testimonial-card:hover, html.dark .involve-card:hover, html.dark .blog-card:hover {
+  background: linear-gradient(135deg, var(--gray-800), var(--gray-700));
+}
+
+.progress-fill {
+  width: 0;
+  animation: fillProgress 1.5s ease-out forwards;
+}
+@keyframes fillProgress {
+  to { width: var(--progress-width); }
+}

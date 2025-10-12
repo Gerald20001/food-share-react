@@ -1,0 +1,109 @@
+.form-page-container {
+    width: 100%;
+    max-width: 700px;
+    margin: 2rem auto;
+    background-color: var(--white);
+    padding: 2rem;
+    border-radius: 1rem;
+    border: 2px solid var(--black);
+}
+html.dark .form-page-container {
+    background-color: var(--gray-800);
+    border-color: var(--gray-600);
+}
+
+.form-page-title {
+    font-size: 1.875rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+.form-page-subtitle {
+    color: var(--gray-500);
+    text-align: center;
+    margin-bottom: 2rem;
+}
+html.dark .form-page-subtitle { color: var(--gray-400); }
+
+.offer-form {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+/* Стили для полей ввода, адаптированные из модального окна */
+.offer-form .form-field label {
+    background-color: var(--white);
+}
+html.dark .offer-form .form-field label {
+    background-color: var(--gray-800);
+}
+
+.offer-form textarea, .offer-form select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background-color: transparent;
+    border: 2px solid var(--black);
+    border-radius: 0.5rem;
+    color: var(--gray-800);
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+}
+html.dark .offer-form textarea, html.dark .offer-form select {
+    border-color: var(--gray-600);
+    color: var(--gray-200);
+}
+.offer-form textarea:focus, .offer-form select:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--pink-500);
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--gray-300);
+}
+html.dark .form-actions { border-color: var(--gray-700); }
+
+/* --- Стили для загрузки фото и предпросмотра --- */
+.file-upload-label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 2rem 1rem;
+    border: 2px dashed var(--gray-400);
+    border-radius: 0.5rem;
+    background-color: #f9fafb;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+    text-align: center;
+    color: var(--gray-600);
+}
+html.dark .file-upload-label {
+    background-color: var(--gray-700);
+    border-color: var(--gray-600);
+    color: var(--gray-400);
+}
+.file-upload-label:hover {
+    background-color: #f3f4f6;
+    border-color: var(--pink-500);
+}
+html.dark .file-upload-label:hover {
+    background-color: var(--gray-600);
+}
+.file-upload-input {
+    display: none; /* Сам инпут мы прячем */
+}
+.image-preview {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 0.5rem;
+    margin-top: 1rem;
+    border: 2px solid var(--gray-300);
+}
