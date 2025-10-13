@@ -1,16 +1,21 @@
 import { Link } from 'react-router-dom';
+import { useAutoAnimate } from '@formkit/auto-animate/react'; // 1. Импортируем хук
 import './DashboardPage.css';
 import OfferCard from '../components/OfferCard/OfferCard';
-import { offers as mockOffers } from '../data/mockData'; 
-import { useOffers } from '../context/OfferContext'; 
-import { useAuth } from '../context/AuthContext';  
+import { useOffers } from '../context/OfferContext';
+import { useAuth } from '../context/AuthContext';
+import { useTitle } from '../hooks/useTitle';
 
 function DashboardPage() {
-    const { offers } = useOffers(); 
+    useTitle('Мой кабинет');
+  const { offers } = useOffers();
   const { user } = useAuth();
+  
+  // 2. Инициализируем хук. Он возвращает 'ref', который мы повесим на анимируемый элемент.
+  const [parent] = useAutoAnimate();
 
- 
   const myOffers = offers.filter(offer => offer.userId === user.id);
+
   return (
     <>
       <div className="dashboard-header">
@@ -24,7 +29,9 @@ function DashboardPage() {
         <h2>Мои объявления ({myOffers.length})</h2>
         
         {myOffers.length > 0 ? (
-          <div className="offers-grid">
+          // 3. Вешаем ref на родительский div, который содержит список.
+          // Все! Больше ничего делать не нужно.
+          <div className="offers-grid" ref={parent}>
             {myOffers.map(offer => (
               <OfferCard key={offer.id} offer={offer} />
             ))}

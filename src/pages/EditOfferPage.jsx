@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useToast } from '../context/ToastContext';
 import { useOffers } from '../context/OfferContext';
 import NotFoundPage from './NotFoundPage';
+import { useTitle } from '../hooks/useTitle';
 import './NewOfferPage.css'; // Переиспользуем стили
 
 function EditOfferPage() {
@@ -12,6 +13,7 @@ function EditOfferPage() {
   const { getOfferById, updateOffer } = useOffers();
 
   const [formData, setFormData] = useState(null);
+  useTitle('Редактирование');
 
   useEffect(() => {
     const offerToEdit = getOfferById(offerId);

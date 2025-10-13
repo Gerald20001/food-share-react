@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import './ProfilePage.css';
 import NotFoundPage from './NotFoundPage';
+import { useTitle } from '../hooks/useTitle';
 
 // 1. ИСПРАВЛЕНИЕ: Импортируем данные о пользователях из центрального файла.
 // Мы используем `as mockUsers`, чтобы остальной код не пришлось менять.
@@ -11,6 +12,7 @@ function StarRating({ rating }) {
   const totalStars = 5;
   const fullStars = Math.floor(rating);
   const stars = [];
+  useTitle(user ? user.name : 'Профиль');
   for (let i = 0; i < fullStars; i++) {
     stars.push(<span key={`full-${i}`}>★</span>);
   }

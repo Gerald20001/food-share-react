@@ -1,15 +1,20 @@
-import { useState, useEffect } from 'react';
-import { Outlet } from 'react-router-dom';
+import React, { useState, useEffect, Suspense } from 'react';
+import { Outlet, useNavigate } from 'react-router-dom';
+import { useAuth } from './context/AuthContext';
 import Header from './components/Header/Header';
 import AuthModal from './components/AuthModal/AuthModal';
 import Footer from './components/Footer/Footer';
+import Loading from './components/Loading/Loading';
 
 function Layout() {
-  // --- Состояние для модального окна ---
+  const navigate = useNavigate();
+  const { isAuthenticated, user } = useAuth();
+
+  // Состояние для модального окна
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalView, setModalView] = useState('login');
 
-  // --- Состояние для темной темы ---
+  // Состояние для темной темы
   const [isDarkMode, setIsDarkMode] = useState(localStorage.getItem('theme') === 'dark');
 
   // Эффект для управления классом темы и сохранения в localStorage
@@ -20,24 +25,23 @@ function Layout() {
     localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
   }, [isDarkMode]);
 
-  // --- Функции-обработчики ---
-  const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode);
-  };
+  // Эффект для "умного" перенаправления после логина
+  useEffect(() => {
+    // Срабатывает, когда isAuthenticated меняется с false на true
+    if (isAuthenticated && user) {
+      if (user.role === 'organization') {
+        navigate('/dashboard', { replace: true });
+      } else if (user.role === 'volunteer') {
+        navigate('/map', { replace: true });
+      }
+    }
+  }, [isAuthenticated, user, navigate]);
 
-  const handleOpenLoginModal = () => {
-    setModalView('login');
-    setIsModalOpen(true);
-  };
-
-  const handleOpenSignupModal = () => {
-    setModalView('signup');
-    setIsModalOpen(true);
-  };
-  
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
+  // Функции-обработчики
+  const toggleTheme = () => setIsDarkMode(!isDarkMode);
+  const handleOpenLoginModal = () => { setModalView('login'); setIsModalOpen(true); };
+  const handleOpenSignupModal = () => { setModalView('signup'); setIsModalOpen(true); };
+  const handleCloseModal = () => setIsModalOpen(false);
 
   return (
     <>
@@ -48,14 +52,10 @@ function Layout() {
         toggleTheme={toggleTheme}
       />
 
-      <main className="main-content">
-        {/*
-          КЛЮЧЕВОЕ ИЗМЕНЕНИЕ:
-          Мы передаем функции onSignupClick и onLoginClick через 'context'.
-          Теперь любая страница (HomePage, MapPage и т.д.), которая рендерится 
-          внутри Outlet, сможет получить к ним доступ.
-        */}
-        <Outlet context={{ onSignupClick: handleOpenSignupModal, onLoginClick: handleOpenLoginModal }} />
+      <main>
+        <Suspense fallback={<Loading />}>
+          <Outlet context={{ onSignupClick: handleOpenSignupModal, onLoginClick: handleOpenLoginModal }} />
+        </Suspense>
       </main>
 
       <Footer />

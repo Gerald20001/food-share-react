@@ -1,31 +1,42 @@
+import { useMemo } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { Link } from 'react-router-dom';
+import { useOffers } from '../../context/OfferContext';
+import MapController from './MapController';
 import './MapComponent.css';
-import { useOffers } from '../../context/OfferContext'; 
 
-// Те же самые "моковые" данные
-const mockOffers = [
-    { id: 1, title: 'Свежий хлеб', position: [49.2331, 28.4682], imageUrl: 'https://images.unsplash.com/photo-1581331473244-887d155375d0?q=80&w=2940&auto=format&fit=crop' },
-    { id: 2, title: 'Свежие овощи', position: [49.2300, 28.4700], imageUrl: 'https://images.unsplash.com/photo-1597362925123-77861d3fbac8?q=80&w=2940&auto=format&fit=crop' },
-    { id: 3, title: 'Молочные продукты', position: [49.2355, 28.4655], imageUrl: 'https://images.unsplash.com/photo-1628038455627-0e6b356c9a38?q=80&w=2942&auto=format&fit=crop' },
-];
-
-function MapComponent() {
-  // Координаты центра карты (Винница)
-    const { offers } = useOffers(); 
-  const mapCenter = [49.2331, 28.4682];
+function MapComponent({ searchLocation, category, searchTerm }) {
+  const { offers } = useOffers();
+  const defaultCenter = { lat: 49.2331, lon: 28.4682 };
   
+  const filteredOffers = useMemo(() => {
+    // Приводим поисковый запрос к нижнему регистру один раз для эффективности
+    const lowercasedSearchTerm = searchTerm.toLowerCase();
+
+    return offers.filter(offer => {
+      // Фильтр по категории
+      const categoryMatch = category === 'all' || (offer.category && offer.category.toLowerCase() === category);
+      if (!categoryMatch) return false;
+
+      // ВОЗВРАЩАЕМ: Фильтр по поисковому запросу
+      const searchMatch = !lowercasedSearchTerm || offer.title.toLowerCase().includes(lowercasedSearchTerm);
+      if (!searchMatch) return false;
+      
+      return true; // Показываем объявление, если оно прошло все проверки
+    });
+  }, [offers, category, searchTerm]); // Добавляем searchTerm в зависимости
 
   return (
-    <MapContainer center={mapCenter} zoom={14} className="map-container">
-      <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-      {offers.map(offer => ( // <-- ИЗМЕНЕНИЕ
+    <MapContainer center={[defaultCenter.lat, defaultCenter.lon]} zoom={13} className="map-container">
+      <TileLayer url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}" />
+      
+      {filteredOffers.map(offer => (
         <Marker key={offer.id} position={offer.position}>
           <Popup>
             <div className="popup-content">
               <img src={offer.imageUrl} alt={offer.title} />
               <h3>{offer.title}</h3>
-              {/* Ссылка на будущую страницу деталей объявления */}
+              <p>{offer.location}</p>
               <Link to={`/offer/${offer.id}`} className="btn btn-primary">
                 Детали
               </Link>
@@ -33,6 +44,8 @@ function MapComponent() {
           </Popup>
         </Marker>
       ))}
+
+      <MapController searchLocation={searchLocation} />
     </MapContainer>
   );
 }

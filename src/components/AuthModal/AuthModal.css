@@ -1,37 +1,67 @@
-/* --- Стили для компонента AuthModal --- */
+/* --- Финальные стили для анимации AuthModal --- */
+
+/* --- Анимация для фона (overlay) --- */
 .modal-overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 50;
+    position: fixed; inset: 0; z-index: 50;
     background-color: rgba(0, 0, 0, 0.6);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: flex; justify-content: center; align-items: center;
     padding: 1rem;
-    overflow-y: auto;
 }
-html.dark .modal-overlay { background-color: rgba(0, 0, 0, 0.8); }
 
-.modal-content {
-    background-color: var(--white);
-    width: 100%;
-    max-width: 56rem;
-    display: flex;
-    border-radius: 1.5rem;
-    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
-    overflow: hidden;
-    transform: scale(0.95);
+/* Начальное состояние фона при входе */
+.modal-overlay-enter {
     opacity: 0;
-    transition: transform 0.2s ease, opacity 0.2s ease;
 }
-
-.modal-overlay.open .modal-content {
-    transform: scale(1);
+/* Конечное состояние фона при входе (анимация происходит здесь) */
+.modal-overlay-enter-active {
+    opacity: 1;
+    transition: opacity 300ms ease-in-out;
+}
+/* Начальное состояние фона при выходе */
+.modal-overlay-exit {
     opacity: 1;
 }
+/* Конечное состояние фона при выходе (анимация происходит здесь) */
+.modal-overlay-exit-active {
+    opacity: 0;
+    transition: opacity 300ms ease-in-out;
+}
 
+
+/* --- Анимация для контента (белое окно) --- */
+.modal-content {
+    background-color: var(--white);
+    width: 100%; max-width: 56rem; display: flex;
+    border-radius: 1.5rem; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+    overflow: hidden;
+}
+
+/* Начальное состояние контента при входе */
+.modal-content-enter {
+    opacity: 0;
+    transform: scale(0.95);
+}
+/* Конечное состояние контента при входе (анимация происходит здесь) */
+.modal-content-enter-active {
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 300ms, transform 300ms ease-in-out;
+}
+/* Начальное состояние контента при выходе */
+.modal-content-exit {
+    opacity: 1;
+    transform: scale(1);
+}
+/* Конечное состояние контента при выходе (анимация происходит здесь) */
+.modal-content-exit-active {
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 300ms, transform 300ms ease-in-out;
+}
+
+
+/* --- Остальные стили для модалки (остаются без изменений) --- */
 html.dark .modal-content { background-color: var(--gray-800); }
-
 .modal-image-panel { display: none; }
 .modal-form-panel {
     width: 100%;
@@ -56,7 +86,7 @@ html.dark .close-modal-btn:hover { color: var(--gray-200); }
     .modal-form-panel { width: 58.33%; padding: 3rem; }
 }
 
-/* --- ОБЩИЕ СТИЛИ ФОРМ ВНУТРИ МОДАЛКИ --- */
+/* --- Стили для форм внутри модалки --- */
 .form-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem; }
 .form-field { position: relative; margin-bottom: 1.25rem; }
 .form-field label { position: absolute; left: 1rem; top: -0.875rem; background-color: var(--pink-50); padding: 0 0.25rem; font-size: 0.875rem; font-weight: 500; color: var(--gray-600); z-index: 10; }
@@ -74,7 +104,6 @@ html.dark .form-switch-link { color: var(--white); }
 html.dark .btn-form-submit { background-color: var(--gray-700); border-color: var(--gray-600); color: var(--gray-200); }
 html.dark .btn-form-submit:hover { background-color: var(--gray-600); }
 
-/* --- ИСПРАВЛЕНИЕ: СТИЛИ ДЛЯ ВЫБОРА ТИПА ПОЛЬЗОВАТЕЛЯ --- */
 .form-fieldset { border: none; padding: 0; margin-bottom: 1.25rem; }
 .form-legend { padding: 0; margin: 0 0 0.5rem 0; font-size: 0.875rem; font-weight: 500; color: var(--gray-600); width: 100%; text-align: left; }
 html.dark .form-legend { color: var(--gray-400); }
@@ -86,7 +115,6 @@ html.dark .user-type-label { color: var(--gray-300); background-color: var(--gra
 .user-type-selector input[type="radio"]:checked + .user-type-label { border-color: var(--pink-500); background-color: var(--white); color: var(--pink-600); box-shadow: 0 0 0 2px var(--pink-500); }
 html.dark .user-type-selector input[type="radio"]:checked + .user-type-label { background-color: var(--gray-800); color: var(--pink-400); border-color: var(--pink-400); }
 
-/* --- ИСПРАВЛЕНИЕ: СТИЛИ ДЛЯ СОЦ. КНОПОК И РАЗДЕЛИТЕЛЯ --- */
 .divider { display: flex; align-items: center; text-align: center; color: var(--gray-500); font-size: 0.875rem; font-weight: 500; margin: 1.5rem 0 1rem 0; }
 .divider::before, .divider::after { content: ''; flex: 1; border-bottom: 1px solid var(--gray-400); }
 .divider::before { margin-right: .5em; }

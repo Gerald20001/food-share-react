@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
+import { useTitle } from '../hooks/useTitle';
 import './NotFoundPage.css';
 
 function NotFoundPage() {
+  useTitle('Страница не найдена');
   return (
     <div className="not-found-container">
       <h1 className="not-found-code">404</h1>

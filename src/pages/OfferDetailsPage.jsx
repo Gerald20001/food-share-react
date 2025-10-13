@@ -3,15 +3,23 @@ import { MapContainer, TileLayer, Marker } from 'react-leaflet';
 import './OfferDetailsPage.css';
 import NotFoundPage from './NotFoundPage';
 import { useOffers } from '../context/OfferContext';
+import { useTitle } from '../hooks/useTitle';
 
 function OfferDetailsPage() {
   const { offerId } = useParams();
   const { getOfferById } = useOffers();
   const offer = getOfferById(offerId);
+  useTitle(offer ? offer.title : 'Загрузка...');
 
   if (!offer) {
     return <NotFoundPage />;
   }
+  
+  // Настройки для спутниковой карты
+  const satelliteLayer = {
+    url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+    attribution: 'Tiles &copy; Esri'
+  };
 
   return (
     <div className="offer-details-container">
@@ -19,7 +27,11 @@ function OfferDetailsPage() {
       <div className="offer-details-media">
         <img src={offer.imageUrl} alt={offer.title} />
         <MapContainer center={offer.position} zoom={15} className="offer-details-map">
-          <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+          {/* ИЗМЕНЕНИЕ: Используем спутниковый слой */}
+          <TileLayer
+            url={satelliteLayer.url}
+            attribution={satelliteLayer.attribution}
+          />
           <Marker position={offer.position}></Marker>
         </MapContainer>
       </div>
@@ -28,11 +40,6 @@ function OfferDetailsPage() {
       <div className="offer-details-info">
         <h1 className="offer-title">{offer.title}</h1>
         <p className="offer-meta">
-          {/*
-            ГЛАВНОЕ ИЗМЕНЕНИЕ:
-            Раньше было: <Link to={'/profile/1'}>
-            Теперь мы используем ID пользователя из данных объявления: offer.userId
-          */}
           от <Link to={`/profile/${offer.userId}`}>{offer.location}</Link>
         </p>
         <p className="offer-description">{offer.description}</p>

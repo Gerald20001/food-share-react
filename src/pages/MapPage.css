@@ -1,12 +1,12 @@
 .map-page-container {
-    /* Мы убираем padding из .main-content, чтобы карта была на всю высоту */
     width: 100vw;
-    height: calc(100vh - 64px); /* 100% высоты минус шапка */
-    margin-top: 64px; /* Отступ от шапки */
+    height: calc(100vh - 64px);
+    margin-top: 64px;
     display: flex;
-    position: fixed; /* Фиксируем, чтобы страница не скроллилась */
+    position: fixed;
     top: 0;
     left: 0;
+    overflow: hidden;
 }
 
 .filters-panel {
@@ -14,8 +14,10 @@
     padding: 1.5rem;
     background-color: var(--white);
     border-right: 1px solid var(--gray-300);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     overflow-y: auto;
-    z-index: 20; /* Чтобы был над картой */
+    z-index: 20;
+    transition: transform 0.3s ease-in-out;
 }
 
 html.dark .filters-panel {
@@ -23,7 +25,150 @@ html.dark .filters-panel {
     border-color: var(--gray-700);
 }
 
-.filters-panel h2 { font-size: 1.25rem; margin-bottom: 1.5rem; }
-.filter-group { margin-bottom: 1.5rem; }
-.filter-group label { display: block; font-weight: 500; margin-bottom: 0.5rem; }
-.filter-group input, .filter-group select { width: 100%; padding: 0.5rem; border-radius: 0.5rem; border: 1px solid var(--gray-400); }
+.filters-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.filters-panel h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--gray-900);
+}
+
+html.dark .filters-panel h2 {
+    color: var(--gray-200);
+}
+
+.filter-group {
+    margin-bottom: 1.5rem;
+}
+
+.filter-group label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: var(--gray-700);
+}
+
+html.dark .filter-group label {
+    color: var(--gray-300);
+}
+
+.filter-group input,
+.filter-group select {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--gray-400);
+    background-color: var(--gray-50);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+html.dark .filter-group input,
+html.dark .filter-group select {
+    background-color: var(--gray-700);
+    border-color: var(--gray-600);
+    color: var(--gray-200);
+}
+
+.filter-group input:focus,
+.filter-group select:focus {
+    outline: none;
+    border-color: var(--pink-500);
+    box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.2);
+}
+
+.filter-group input[type="range"] {
+    cursor: pointer;
+}
+
+.filter-group input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    background-color: var(--pink-500);
+    border-radius: 50%;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.filter-group input[type="range"]::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    background-color: var(--pink-500);
+    border-radius: 50%;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.apply-filters {
+    width: 100%;
+    margin-top: 1rem;
+    background-image: linear-gradient(to right, var(--pink-500), var(--yellow-400));
+    color: var(--white);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.apply-filters:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.filter-toggle {
+    display: none;
+    font-size: 1.5rem;
+    padding: 0.5rem;
+}
+
+.map-container {
+    flex-grow: 1;
+    z-index: 10;
+}
+
+.popup-content {
+    text-align: left;
+}
+
+.popup-content h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.popup-content p {
+    font-size: 0.875rem;
+    color: var(--gray-600);
+    margin-bottom: 0.5rem;
+}
+
+.popup-content .btn {
+    margin-top: 0.5rem;
+    display: inline-block;
+}
+
+/* Адаптивный дизайн */
+@media (max-width: 768px) {
+    .filters-panel {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        transform: translateX(-100%);
+    }
+
+    .filters-panel.open {
+        transform: translateX(0);
+    }
+
+    .filter-toggle {
+        display: block;
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        z-index: 30;
+    }
+}

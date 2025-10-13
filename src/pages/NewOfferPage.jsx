@@ -2,12 +2,14 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '../context/ToastContext';
 import { useOffers } from '../context/OfferContext';
+import { useTitle } from '../hooks/useTitle';
 import './NewOfferPage.css';
 
 function NewOfferPage() {
   const navigate = useNavigate();
   const { addToast } = useToast();
   const { addOffer } = useOffers();
+  useTitle('Новое объявление');
 
   // Состояние для текстовых полей формы
   const [formData, setFormData] = useState({

@@ -1,15 +1,15 @@
-import './FeatureCard.css';
+import { motion } from 'framer-motion';
+import './FeatureCard.css'; // Убедись, что этот CSS-файл существует
 
-// Мы получаем объект props и сразу "деструктурируем" его,
-// доставая нужные нам значения: icon, title, description.
-function FeatureCard({ icon, title, description }) {
+// Мы добавим `variants` как prop, чтобы передать анимацию из родителя
+function FeatureCard({ icon, title, description, variants }) {
   return (
-    <div className="feature-card">
-      {/* Вместо текста вставляем наши переменные из props */}
+    // Оборачиваем div в motion.div и передаем ему variants
+    <motion.div className="feature-card" variants={variants}>
       <div className="feature-icon">{icon}</div>
       <h3 className="feature-title">{title}</h3>
       <p className="feature-description">{description}</p>
-    </div>
+    </motion.div>
   );
 }
 

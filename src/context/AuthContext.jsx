@@ -1,58 +1,37 @@
 import React, { createContext, useState, useContext } from 'react';
-import { useToast } from './ToastContext'; // 1. Импортируем хук для уведомлений
+import { useToast } from './ToastContext';
 
-// Создаем сам контекст
 const AuthContext = createContext(null);
 
-// Создаем "Провайдер" - компонент, который будет хранить состояние и логику
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
-  const { addToast } = useToast(); // 2. Получаем функцию для добавления уведомлений
+  const { addToast } = useToast();
+  // УБИРАЕМ useNavigate ОТСЮДА
 
-  // --- Функции-заглушки, которые мы потом заменим на реальные запросы к API ---
-
-  const login = (email, password) => {
-    console.log("Попытка входа с:", email, password);
-    // В БУДУЩЕМ: здесь будет fetch-запрос к вашему API
-
-    // А ПОКА: просто создаем фейкового пользователя
+  const login = (email, password, role = 'organization') => {
     const fakeUser = {
-      id: 1,
-      name: "John Doe",
+      id: role === 'organization' ? 1 : 101,
+      name: role === 'organization' ? "Пекарня 'Добро'" : "Иван Волонтер",
       email: email,
-      avatarUrl: 'https://i.pravatar.cc/150?u=a042581f4e29026704d'
+      avatarUrl: role === 'organization' ? 'https://i.pravatar.cc/150?u=org' : 'https://i.pravatar.cc/150?u=volunteer',
+      role: role
     };
     setUser(fakeUser);
-    
-    // 3. Используем уведомление вместо console.log
     addToast(`Добро пожаловать, ${fakeUser.name}!`);
+    // УБИРАЕМ navigate(...) ОТСЮДА
   };
 
   const logout = () => {
-    console.log("Выход из системы");
-    // В БУДУЩЕМ: здесь будет fetch-запрос к /api/logout
     setUser(null);
-    
-    // 4. Используем уведомление с типом 'error' (или любым другим)
     addToast('Вы вышли из системы.', 'error');
+    // УБИРАЕМ navigate(...) ОТСЮДА
   };
 
-  const signup = (name, email, password) => {
-    console.log("Регистрация:", name, email, password);
-    // После успешной регистрации сразу логиним, что вызовет уведомление о входе
-    login(email, password);
+  const signup = (name, email, password, role) => {
+    login(email, password, role);
   };
   
-  // --- КОНЕЦ ФУНКЦИЙ-ЗАГЛУШЕК ---
-
-  // Передаем состояние и функции всем дочерним компонентам
-  const value = {
-    user,
-    login,
-    logout,
-    signup,
-    isAuthenticated: !!user
-  };
+  const value = { user, login, logout, signup, isAuthenticated: !!user };
 
   return (
     <AuthContext.Provider value={value}>
@@ -61,7 +40,6 @@ export function AuthProvider({ children }) {
   );
 }
 
-// Создаем кастомный хук для удобного доступа к контексту
 export function useAuth() {
   const context = useContext(AuthContext);
   if (!context) {
