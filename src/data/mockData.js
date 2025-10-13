@@ -43,5 +43,17 @@ export const users = {
     reviews: [
       { from: "Мария", rating: 5, comment: "Очень удобно забирать после работы, всегда свежие продукты." }
     ]
+  },
+   '101': {
+    name: "Иван Волонтер",
+    isVerified: false,
+    avatarUrl: 'https://i.pravatar.cc/150?u=volunteer',
+    coverUrl: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2940&auto=format&fit=crop', // Какая-нибудь обложка
+    description: "Помогаю сообществу в свободное время. Готов забирать еду в центральном районе.",
+    // У волонтера другая статистика
+    stats: { offers: 0, reviews: 3, rating: 5.0 }, 
+    reviews: [
+      { from: "Пекарня 'Добро'", rating: 5, comment: "Иван всегда вовремя и очень вежлив!" }
+    ]
   }
 };

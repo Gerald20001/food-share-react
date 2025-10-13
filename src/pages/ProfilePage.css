@@ -98,3 +98,4 @@ html.dark .review-comment { color: var(--gray-400); }
     }
     .profile-title { margin-left: 1rem; margin-bottom: 0.5rem; margin-top: 0; }
 }
+.edit-profile-btn { margin-left: auto; }

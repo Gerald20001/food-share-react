@@ -1,5 +1,6 @@
 import React, { createContext, useState, useContext } from 'react';
 import { useToast } from './ToastContext';
+import { users as mockUsers } from '../data/mockData'; // Импортируем моковые данные
 
 const AuthContext = createContext(null);
 
@@ -8,20 +9,20 @@ export function AuthProvider({ children }) {
   const { addToast } = useToast();
 
   const login = async (email, password, role = 'organization') => {
-    // Имитируем задержку сети
     await new Promise(resolve => setTimeout(resolve, 500)); 
+    
+    // При логине подтягиваем полные данные из mockData, чтобы профиль был полным
+    const userId = role === 'organization' ? '1' : '101';
+    const baseUser = mockUsers[userId];
 
     const fakeUser = {
-      id: role === 'organization' ? 1 : 101,
-      name: role === 'organization' ? "Пекарня 'Добро'" : "Иван Волонтер",
+      ...baseUser,
+      id: parseInt(userId),
       email: email,
-      avatarUrl: role === 'organization' ? 'https://i.pravatar.cc/150?u=org' : 'https://i.pravatar.cc/150?u=volunteer',
       role: role
     };
     setUser(fakeUser);
     addToast(`Добро пожаловать, ${fakeUser.name}!`);
-    
-    // Возвращаем пользователя, чтобы компонент мог узнать его роль
     return fakeUser; 
   };
 
@@ -31,11 +32,35 @@ export function AuthProvider({ children }) {
   };
 
   const signup = async (name, email, password, role) => {
-    // Функция signup теперь тоже возвращает результат login
+    // После регистрации вызываем login, который подтянет все данные
     return await login(email, password, role);
   };
   
-  const value = { user, login, logout, signup, isAuthenticated: !!user };
+  const updateUser = async (updatedData) => {
+    await new Promise(resolve => setTimeout(resolve, 500));
+    
+    // Обновляем "живое" состояние пользователя в контексте
+    const updatedUser = { ...user, ...updatedData };
+    setUser(updatedUser);
+    
+    // ВАЖНО: Также обновляем наши "моковые" данные, чтобы ProfilePage видел изменения
+    // при просмотре другими пользователями (в будущем это будет делать бэкэнд).
+    if (mockUsers[user.id]) {
+      mockUsers[user.id] = { ...mockUsers[user.id], ...updatedData };
+    }
+
+    addToast('Профиль успешно обновлен!');
+    return updatedUser;
+  };
+  
+  const value = {
+    user,
+    login,
+    logout,
+    signup,
+    updateUser,
+    isAuthenticated: !!user
+  };
 
   return (
     <AuthContext.Provider value={value}>

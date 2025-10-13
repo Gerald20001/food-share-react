@@ -1,25 +1,49 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import ProfileDropdown from '../ProfileDropdown/ProfileDropdown';
 import './Header.css';
 import logoImg from '../../assets/logo.png';
 
 function Header({ onLoginClick, onSignupClick, isDarkMode, toggleTheme }) {
+  // Состояние для мобильного меню (бургера)
   const [isNavOpen, setIsNavOpen] = useState(false);
+  // Состояние для выпадающего меню профиля
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
   const { isAuthenticated, user, logout } = useAuth();
   const navigate = useNavigate();
+  const dropdownRef = useRef(null);
 
-  const handleLogout = () => {
-    logout();
-    navigate('/');
-  };
-
+  // Функция для открытия/закрытия мобильного меню
   const toggleNav = () => {
     setIsNavOpen(!isNavOpen);
   };
 
-  // Определяем, куда будет вести ссылка с аватарки/имени
-  // Если пользователь существует, проверяем его роль, иначе - ссылка по умолчанию
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+    setIsDropdownOpen(false); // Закрываем меню после выхода
+  };
+
+  // Логика для закрытия выпадающего меню при клике "мимо"
+  useEffect(() => {
+    function handleClickOutside(event) {
+      // Проверяем, что клик был не по аватару (чтобы не закрывать сразу после открытия)
+      // и не внутри самого выпадающего меню
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target) && !event.target.closest('.profile-avatar')) {
+        setIsDropdownOpen(false);
+      }
+    }
+    if (isDropdownOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isDropdownOpen]);
+  
+  // Определяем правильный путь к дашборду в зависимости от роли
   const dashboardPath = user ? (user.role === 'organization' ? '/dashboard' : '/my-claims') : '/';
 
   return (
@@ -30,6 +54,7 @@ function Header({ onLoginClick, onSignupClick, isDarkMode, toggleTheme }) {
           <span className="logo-text">FoodShare</span>
         </Link>
 
+        {/* Кнопка-бургер теперь снова работает */}
         <button className="hamburger-btn" onClick={toggleNav} aria-label="Toggle navigation menu" aria-expanded={isNavOpen}>
           <span></span><span></span><span></span>
         </button>
@@ -38,7 +63,6 @@ function Header({ onLoginClick, onSignupClick, isDarkMode, toggleTheme }) {
           <NavLink to="/map" className={({ isActive }) => isActive ? 'active' : ''}>
             Find Food
           </NavLink>
-          {/* Ссылка "Share Food" видна только организациям */}
           {isAuthenticated && user?.role === 'organization' && (
             <NavLink to="/dashboard" className={({ isActive }) => isActive ? 'active' : ''}>
               Share Food
@@ -47,12 +71,14 @@ function Header({ onLoginClick, onSignupClick, isDarkMode, toggleTheme }) {
           <a href="/#blog-highlights">Blog</a>
 
           {isAuthenticated ? (
-            <div className="profile-menu">
-              {/* Ссылка теперь динамическая и ведет на правильный дашборд */}
-              <Link to={dashboardPath} aria-label="Dashboard">
-                <img src={user.avatarUrl} alt="User Avatar" className="profile-avatar" />
-              </Link>
-              <button onClick={handleLogout} className="btn btn-secondary">Log Out</button>
+            <div className="profile-menu" ref={dropdownRef}>
+              <img 
+                src={user.avatarUrl} 
+                alt="User Avatar" 
+                className="profile-avatar"
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)} 
+              />
+              {isDropdownOpen && <ProfileDropdown user={user} onLogout={handleLogout} />}
             </div>
           ) : (
             <>
