@@ -6,9 +6,11 @@ const AuthContext = createContext(null);
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const { addToast } = useToast();
-  // УБИРАЕМ useNavigate ОТСЮДА
 
-  const login = (email, password, role = 'organization') => {
+  const login = async (email, password, role = 'organization') => {
+    // Имитируем задержку сети
+    await new Promise(resolve => setTimeout(resolve, 500)); 
+
     const fakeUser = {
       id: role === 'organization' ? 1 : 101,
       name: role === 'organization' ? "Пекарня 'Добро'" : "Иван Волонтер",
@@ -18,17 +20,19 @@ export function AuthProvider({ children }) {
     };
     setUser(fakeUser);
     addToast(`Добро пожаловать, ${fakeUser.name}!`);
-    // УБИРАЕМ navigate(...) ОТСЮДА
+    
+    // Возвращаем пользователя, чтобы компонент мог узнать его роль
+    return fakeUser; 
   };
 
   const logout = () => {
     setUser(null);
     addToast('Вы вышли из системы.', 'error');
-    // УБИРАЕМ navigate(...) ОТСЮДА
   };
 
-  const signup = (name, email, password, role) => {
-    login(email, password, role);
+  const signup = async (name, email, password, role) => {
+    // Функция signup теперь тоже возвращает результат login
+    return await login(email, password, role);
   };
   
   const value = { user, login, logout, signup, isAuthenticated: !!user };

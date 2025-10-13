@@ -10,12 +10,14 @@ import user2Avatar from '../assets/user2.png';
 import user2Cover from '../assets/user3.png';
 
 export const offers = [
-  // Добавляем 'category' к каждому объекту
-  { id: 1, userId: 1, title: 'Свежий хлеб', category: 'bakery', location: "Пекарня 'Добро'", position: [49.2331, 28.4682], imageUrl: breadImage, description: 'Остатки свежего хлеба и круассанов после закрытия. Идеально для ужина.', specs: ['Тип: Выпечка', 'Количество: ~5 кг', 'Забрать до: 20:00'] },
+  // ИСПРАВЛЕНИЕ: Добавляем 'status: 'Active'' к каждому объекту
+  { id: 1, userId: 1, title: 'Свежий хлеб', category: 'bakery', status: 'Active', location: "Пекарня 'Добро'", position: [49.2331, 28.4682], imageUrl: breadImage, description: 'Остатки свежего хлеба и круассанов после закрытия. Идеально для ужина.', specs: ['Тип: Выпечка', 'Количество: ~5 кг', 'Забрать до: 20:00'] },
   
-  { id: 2, userId: 2, title: 'Свежие овощи', category: 'produce', location: "Рынок 'Центральный'", position: [49.2300, 28.4700], imageUrl: veggiesImage, description: 'Свежие сезонные овощи от местных фермеров. В основном помидоры, огурцы и зелень.', specs: ['Тип: Овощи', 'Количество: 1 ящик', 'Забрать до: 18:00'] },
+  { id: 2, userId: 2, title: 'Свежие овощи', category: 'produce', status: 'Active', location: "Рынок 'Центральный'", position: [49.2300, 28.4700], imageUrl: veggiesImage, description: 'Свежие сезонные овощи от местных фермеров. В основном помидоры, огурцы и зелень.', specs: ['Тип: Овощи', 'Количество: 1 ящик', 'Забрать до: 18:00'] },
   
-  { id: 3, userId: 1, title: 'Молочные продукты', category: 'dairy', location: "Пекарня 'Добро'", position: [49.2355, 28.4655], imageUrl: milkImage, description: 'Йогурты и молоко, срок годности которых истекает завтра. Все герметично упаковано.', specs: ['Тип: Молочное', 'Количество: 1 пакет', 'Забрать до: 22:00'] },
+  { id: 3, userId: 1, title: 'Молочные продукты', category: 'dairy', status: 'Active', location: "Пекарня 'Добро'", position: [49.2355, 28.4655], imageUrl: milkImage, description: 'Йогурты и молоко, срок годности которых истекает завтра. Все герметично упаковано.', specs: ['Тип: Молочное', 'Количество: 1 пакет', 'Забрать до: 22:00'] },
+  
+  { id: 99, userId: 2, title: 'Яблоки с дачи (далеко)', category: 'produce', status: 'Active', location: "с. Якушинцы", position: [49.268, 28.325], imageUrl: veggiesImage, description: 'Много яблок с дачи, самовывоз.', specs: ['Тип: Овощи и фрукты', 'Количество: 2 ведра', 'Забрать до: 20:00'] },
 ];
 
 export const users = {

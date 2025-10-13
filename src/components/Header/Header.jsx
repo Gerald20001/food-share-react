@@ -10,13 +10,17 @@ function Header({ onLoginClick, onSignupClick, isDarkMode, toggleTheme }) {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    logout(); // Вызываем функцию из контекста
-    navigate('/'); // Выполняем перенаправление на главную
+    logout();
+    navigate('/');
   };
 
   const toggleNav = () => {
     setIsNavOpen(!isNavOpen);
   };
+
+  // Определяем, куда будет вести ссылка с аватарки/имени
+  // Если пользователь существует, проверяем его роль, иначе - ссылка по умолчанию
+  const dashboardPath = user ? (user.role === 'organization' ? '/dashboard' : '/my-claims') : '/';
 
   return (
     <header className="site-header">
@@ -34,7 +38,7 @@ function Header({ onLoginClick, onSignupClick, isDarkMode, toggleTheme }) {
           <NavLink to="/map" className={({ isActive }) => isActive ? 'active' : ''}>
             Find Food
           </NavLink>
-          {/* Эта ссылка будет подсвечиваться, только если пользователь - организация */}
+          {/* Ссылка "Share Food" видна только организациям */}
           {isAuthenticated && user?.role === 'organization' && (
             <NavLink to="/dashboard" className={({ isActive }) => isActive ? 'active' : ''}>
               Share Food
@@ -44,7 +48,8 @@ function Header({ onLoginClick, onSignupClick, isDarkMode, toggleTheme }) {
 
           {isAuthenticated ? (
             <div className="profile-menu">
-              <Link to="/dashboard" aria-label="Dashboard">
+              {/* Ссылка теперь динамическая и ведет на правильный дашборд */}
+              <Link to={dashboardPath} aria-label="Dashboard">
                 <img src={user.avatarUrl} alt="User Avatar" className="profile-avatar" />
               </Link>
               <button onClick={handleLogout} className="btn btn-secondary">Log Out</button>

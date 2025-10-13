@@ -1,14 +1,12 @@
 import { Link } from 'react-router-dom';
-import { useOffers } from '../../context/OfferContext'; // 1. Импортируем хук
+import { useOffers } from '../../context/OfferContext';
 import { useToast } from '../../context/ToastContext';
 import './OfferCard.css';
     
 function OfferCard({ offer }) {
-  // 2. Получаем функции из контекстов
-  const { deleteOffer } = useOffers();
+  const { deleteOffer, approveClaim, denyClaim } = useOffers();
   const { addToast } = useToast();
   
-  // 3. Деструктурируем все нужные данные из offer
   const { id, title, location, status, imageUrl } = offer;
 
   const statusClass = {
@@ -17,12 +15,44 @@ function OfferCard({ offer }) {
     'Confirmed': 'status-confirmed',
   }[status] || '';
 
-  // 4. Обработчик для кнопки удаления
   const handleDelete = () => {
-    // Спрашиваем подтверждение перед удалением - это хорошая практика!
     if (window.confirm(`Вы уверены, что хотите удалить "${title}"?`)) {
       deleteOffer(id);
       addToast('Объявление успешно удалено', 'error');
+    }
+  };
+
+  const handleApprove = () => {
+    approveClaim(id);
+    addToast('Запрос подтвержден!');
+  };
+
+  const handleDeny = () => {
+    denyClaim(id);
+    addToast('Запрос отклонен.', 'error');
+  };
+
+  // Функция для рендеринга кнопок в зависимости от статуса
+  const renderActions = () => {
+    switch (status) {
+      case 'Active':
+        return (
+          <>
+            <Link to={`/edit-offer/${id}`} className="btn btn-secondary">Edit</Link>
+            <button onClick={handleDelete} className="btn btn-secondary" style={{borderColor: '#ef4444', color: '#ef4444'}}>Delete</button>
+          </>
+        );
+      case 'Reserved':
+        return (
+          <>
+            <button onClick={handleApprove} className="btn btn-approve">Подтвердить</button>
+            <button onClick={handleDeny} className="btn btn-deny">Отклонить</button>
+          </>
+        );
+      case 'Confirmed':
+        return <button className="btn btn-success" disabled>Подтверждено</button>;
+      default:
+        return null;
     }
   };
 
@@ -30,7 +60,6 @@ function OfferCard({ offer }) {
     <div className="offer-card">
       <img src={imageUrl} alt={title} className="offer-card-image" />
       <div className="offer-card-content">
-        {/* 5. ИСПРАВЛЕНИЕ: Добавляем недостающий контент */}
         <h3>{title}</h3>
         <p className="card-meta">Location: {location}</p>
         <p className="card-meta">
@@ -38,13 +67,7 @@ function OfferCard({ offer }) {
         </p>
 
         <div className="card-actions">
-          <Link to={`/edit-offer/${id}`} className="btn btn-secondary">
-            Edit
-          </Link>
-          {/* 6. Вешаем обработчик на кнопку */}
-          <button onClick={handleDelete} className="btn btn-secondary" style={{borderColor: '#ef4444', color: '#ef4444'}}>
-            Delete
-          </button>
+          {renderActions()}
         </div>
       </div>
     </div>

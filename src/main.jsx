@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from 'react'; // 1. ИСПРАВЛЕНИЕ: Добавляем Suspense в импорт
+import React, { lazy, Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
@@ -10,7 +10,8 @@ import 'leaflet/dist/leaflet.css';
 
 // Импортируем компоненты, которые не будут "ленивыми"
 import Layout from './Layout.jsx';
-import OrganizationRoute from './components/OrganizationRoute.jsx'; 
+import ProtectedRoute from './components/ProtectedRoute.jsx'; // 1. Импортируем нашего "общего" охранника
+import OrganizationRoute from './components/OrganizationRoute.jsx'; // 2. Импортируем "охранника" для организаций
 import Loading from './components/Loading/Loading.jsx';
 
 // Ленивая загрузка для всех страниц
@@ -24,15 +25,14 @@ const NewOfferPage = lazy(() => import('./pages/NewOfferPage.jsx'));
 const EditOfferPage = lazy(() => import('./pages/EditOfferPage.jsx'));
 const ContactPage = lazy(() => import('./pages/ContactPage.jsx')); 
 const BlogPost = lazy(() => import('./pages/BlogPost.jsx'));
-
-// Импортируем наш новый скелет
-import DashboardSkeleton from './pages/DashboardSkeleton.jsx'; 
+const VolunteerDashboard = lazy(() => import('./pages/VolunteerDashboard.jsx'));
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Layout />,
     children: [
+      // Публичные маршруты
       { index: true, element: <HomePage /> },
       { path: 'map', element: <MapPage /> },
       { path: 'offer/:offerId', element: <OfferDetailsPage /> },
@@ -40,6 +40,7 @@ const router = createBrowserRouter([
       { path: 'contact', element: <ContactPage /> },
       { path: 'blog/:id', element: <BlogPost /> },
       
+      // Маршруты только для ОРГАНИЗАЦИЙ
       {
         path: 'dashboard',
         element: <OrganizationRoute><DashboardPage /></OrganizationRoute>,
@@ -52,6 +53,14 @@ const router = createBrowserRouter([
         path: 'edit-offer/:offerId',
         element: <OrganizationRoute><EditOfferPage /></OrganizationRoute>,
       },
+
+      // Маршрут для ЛЮБОГО залогиненного пользователя (в нашем случае, для волонтера)
+      {
+        path: 'my-claims',
+        element: <ProtectedRoute><VolunteerDashboard /></ProtectedRoute>,
+      },
+      
+      // Страница 404
       { path: '*', element: <NotFoundPage /> },
     ],
   },
@@ -62,12 +71,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <ToastProvider>
       <AuthProvider>
         <OfferProvider>
-          {/*
-            Обертка Suspense здесь больше не нужна, так как мы ее перенесли 
-            в Layout.jsx (для общих страниц) и в роутер (для Dashboard).
-            Но мы оставим RouterProvider внутри, чтобы все работало.
-          */}
-          <RouterProvider router={router} />
+          <Suspense fallback={<Loading />}>
+            <RouterProvider router={router} />
+          </Suspense>
         </OfferProvider>
       </AuthProvider>
     </ToastProvider>

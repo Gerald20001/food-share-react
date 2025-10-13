@@ -133,3 +133,32 @@ html.dark .card-meta {
     padding: 0.5rem;
     font-size: 0.875rem;
 }
+/* src/components/OfferCard/OfferCard.css */
+
+/* ... все твои стили ... */
+
+/* --- НОВЫЕ СТИЛИ ДЛЯ КНОПОК ПОДТВЕРЖДЕНИЯ/ОТКЛОНЕНИЯ --- */
+.btn-approve {
+    background-color: #22c55e;
+    color: white;
+    border-color: #22c55e;
+}
+.btn-approve:hover {
+    background-color: #16a34a;
+}
+.btn-deny {
+    background-color: var(--white);
+    color: var(--gray-700);
+    border-color: var(--gray-400);
+}
+.btn-deny:hover {
+    background-color: #f3f4f6;
+}
+html.dark .btn-deny {
+    background-color: var(--gray-600);
+    color: var(--gray-200);
+    border-color: var(--gray-500);
+}
+html.dark .btn-deny:hover {
+    background-color: var(--gray-500);
+}

@@ -27,6 +27,40 @@ export function OfferProvider({ children }) {
     };
     setOffers(prevOffers => [newOffer, ...prevOffers]);
   };
+   const claimOffer = (offerId) => {
+    setOffers(prevOffers =>
+      prevOffers.map(offer => {
+        if (offer.id === offerId) {
+          console.log(`Волонтер ${user.id} запрашивает оффер ${offerId}`);
+          return { ...offer, status: 'Reserved', claimedBy: user.id }; // Меняем статус и записываем, кто забрал
+        }
+        return offer;
+      })
+    );
+  };
+
+    const approveClaim = (offerId) => {
+    setOffers(prevOffers =>
+      prevOffers.map(offer => {
+        if (offer.id === offerId) {
+          return { ...offer, status: 'Confirmed' }; // Меняем статус на "Подтверждено"
+        }
+        return offer;
+      })
+    );
+  };
+
+    const denyClaim = (offerId) => {
+    setOffers(prevOffers =>
+      prevOffers.map(offer => {
+        if (offer.id === offerId) {
+          // Возвращаем в активное состояние и убираем информацию о том, кто запрашивал
+          return { ...offer, status: 'Active', claimedBy: null };
+        }
+        return offer;
+      })
+    );
+  };
 
   const updateOffer = (offerId, updatedData) => {
     setOffers(prevOffers => 
@@ -47,12 +81,15 @@ export function OfferProvider({ children }) {
     return offers.find(o => o.id === parseInt(id));
   };
 
-  const value = {
+   const value = {
     offers,
     addOffer,
     updateOffer,
     deleteOffer,
-    getOfferById
+    getOfferById,
+    claimOffer, 
+    approveClaim, 
+    denyClaim     
   };
 
   return (

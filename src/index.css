@@ -139,3 +139,21 @@ html.dark .footer-highlight { color: var(--gray-200); }
     .features-grid { grid-template-columns: repeat(3, 1fr); gap: 2rem; }
     .feature-card { padding: 2rem; }
 }
+/* src/index.css */
+
+/* ... все твои стили ... */
+
+/* --- НОВЫЙ СТИЛЬ ДЛЯ КНОПКИ УСПЕХА --- */
+.btn-success {
+  background-color: #22c55e; /* green */
+  border-color: #22c55e;
+  color: white;
+}
+.btn-success:hover {
+  background-color: #16a34a;
+}
+.btn-success:disabled {
+  background-color: #22c55e;
+  opacity: 0.7;
+  cursor: not-allowed;
+}
