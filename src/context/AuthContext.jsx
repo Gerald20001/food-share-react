@@ -1,6 +1,7 @@
 import React, { createContext, useState, useContext } from 'react';
 import { useToast } from './ToastContext';
-import { users as mockUsers } from '../data/mockData'; // Импортируем моковые данные
+// ИСПРАВЛЕНИЕ: Импортируем моковые данные, чтобы функция login работала
+import { users as mockUsers } from '../data/mockData'; 
 
 const AuthContext = createContext(null);
 
@@ -11,7 +12,7 @@ export function AuthProvider({ children }) {
   const login = async (email, password, role = 'organization') => {
     await new Promise(resolve => setTimeout(resolve, 500)); 
     
-    // При логине подтягиваем полные данные из mockData, чтобы профиль был полным
+    // Теперь эта логика будет работать, так как mockUsers импортирован
     const userId = role === 'organization' ? '1' : '101';
     const baseUser = mockUsers[userId];
 
@@ -32,19 +33,15 @@ export function AuthProvider({ children }) {
   };
 
   const signup = async (name, email, password, role) => {
-    // После регистрации вызываем login, который подтянет все данные
     return await login(email, password, role);
   };
   
   const updateUser = async (updatedData) => {
     await new Promise(resolve => setTimeout(resolve, 500));
     
-    // Обновляем "живое" состояние пользователя в контексте
     const updatedUser = { ...user, ...updatedData };
     setUser(updatedUser);
     
-    // ВАЖНО: Также обновляем наши "моковые" данные, чтобы ProfilePage видел изменения
-    // при просмотре другими пользователями (в будущем это будет делать бэкэнд).
     if (mockUsers[user.id]) {
       mockUsers[user.id] = { ...mockUsers[user.id], ...updatedData };
     }

@@ -17,7 +17,7 @@ function ProfilePage() {
   const { userId } = useParams();
   const { user, isAuthenticated } = useAuth();
   
-  const isOwnProfile = isAuthenticated && user.id === parseInt(userId);
+  const isOwnProfile = isAuthenticated && user?.id === parseInt(userId);
   
   // Если это свой профиль - берем "живые" данные из AuthContext.
   // Если чужой - из статичного файла mockUsers.
