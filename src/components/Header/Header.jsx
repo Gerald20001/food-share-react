@@ -6,16 +6,13 @@ import './Header.css';
 import logoImg from '../../assets/logo.png';
 
 function Header({ onLoginClick, onSignupClick, isDarkMode, toggleTheme }) {
-  // Состояние для мобильного меню (бургера)
   const [isNavOpen, setIsNavOpen] = useState(false);
-  // Состояние для выпадающего меню профиля
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const { isAuthenticated, user, logout } = useAuth();
   const navigate = useNavigate();
   const dropdownRef = useRef(null);
 
-  // Функция для открытия/закрытия мобильного меню
   const toggleNav = () => {
     setIsNavOpen(!isNavOpen);
   };
@@ -23,14 +20,12 @@ function Header({ onLoginClick, onSignupClick, isDarkMode, toggleTheme }) {
   const handleLogout = () => {
     logout();
     navigate('/');
-    setIsDropdownOpen(false); // Закрываем меню после выхода
+    setIsDropdownOpen(false); 
   };
 
   // Логика для закрытия выпадающего меню при клике "мимо"
   useEffect(() => {
     function handleClickOutside(event) {
-      // Проверяем, что клик был не по аватару (чтобы не закрывать сразу после открытия)
-      // и не внутри самого выпадающего меню
       if (dropdownRef.current && !dropdownRef.current.contains(event.target) && !event.target.closest('.profile-avatar')) {
         setIsDropdownOpen(false);
       }
@@ -53,8 +48,6 @@ function Header({ onLoginClick, onSignupClick, isDarkMode, toggleTheme }) {
           <img src={logoImg} alt="FoodShare Logo" className="logo-img" />
           <span className="logo-text">FoodShare</span>
         </Link>
-
-        {/* Кнопка-бургер теперь снова работает */}
         <button className="hamburger-btn" onClick={toggleNav} aria-label="Toggle navigation menu" aria-expanded={isNavOpen}>
           <span></span><span></span><span></span>
         </button>

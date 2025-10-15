@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import Spinner from '../components/Spinner/Spinner';
-import './NewOfferPage.css'; // Переиспользуем стили от страницы создания оффера
+import './NewOfferPage.css'; 
 
 function EditProfilePage() {
   const navigate = useNavigate();

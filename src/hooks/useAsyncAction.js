@@ -2,7 +2,6 @@ import { useState, useCallback } from 'react';
 
 export function useAsyncAction(action) {
   const [isLoading, setIsLoading] = useState(false);
-  // Здесь можно хранить состояние ошибки или данных, если нужно
 
   const execute = useCallback(async (...args) => {
     setIsLoading(true);
@@ -14,7 +13,6 @@ export function useAsyncAction(action) {
       return result;
     } catch (error) {
       console.error("Ошибка при выполнении действия:", error);
-      // Здесь можно показывать toast с ошибкой
     } finally {
       setIsLoading(false);
     }

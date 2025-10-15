@@ -10,7 +10,6 @@ function MapComponent({ searchLocation, category, searchTerm }) {
   const defaultCenter = { lat: 49.2331, lon: 28.4682 };
   
   const filteredOffers = useMemo(() => {
-    // Приводим поисковый запрос к нижнему регистру один раз для эффективности
     const lowercasedSearchTerm = searchTerm.toLowerCase();
 
     return offers.filter(offer => {
@@ -24,7 +23,7 @@ function MapComponent({ searchLocation, category, searchTerm }) {
       
       return true; // Показываем объявление, если оно прошло все проверки
     });
-  }, [offers, category, searchTerm]); // Добавляем searchTerm в зависимости
+  }, [offers, category, searchTerm]);
 
   return (
     <MapContainer center={[defaultCenter.lat, defaultCenter.lon]} zoom={13} className="map-container">

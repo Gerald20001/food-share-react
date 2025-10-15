@@ -4,7 +4,7 @@ import { useToast } from '../context/ToastContext';
 import { useOffers } from '../context/OfferContext';
 import NotFoundPage from './NotFoundPage';
 import { useTitle } from '../hooks/useTitle';
-import './NewOfferPage.css'; // Переиспользуем стили
+import './NewOfferPage.css'; 
 
 function EditOfferPage() {
   const { offerId } = useParams();
@@ -46,7 +46,6 @@ function EditOfferPage() {
       <p className="form-page-subtitle">Измените детали вашего объявления</p>
       
       <form className="offer-form" onSubmit={handleSubmit}>
-        {/* ИСПРАВЛЕНИЕ: Добавляем все поля */}
         <div className="form-field">
           <label htmlFor="title">Название</label>
           <input type="text" id="title" name="title" value={formData.title} onChange={handleChange} required />

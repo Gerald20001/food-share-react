@@ -1,6 +1,5 @@
 import React, { createContext, useState, useContext } from 'react';
 import { useToast } from './ToastContext';
-// ИСПРАВЛЕНИЕ: Импортируем моковые данные, чтобы функция login работала
 import { users as mockUsers } from '../data/mockData'; 
 
 const AuthContext = createContext(null);
@@ -12,7 +11,6 @@ export function AuthProvider({ children }) {
   const login = async (email, password, role = 'organization') => {
     await new Promise(resolve => setTimeout(resolve, 500)); 
     
-    // Теперь эта логика будет работать, так как mockUsers импортирован
     const userId = role === 'organization' ? '1' : '101';
     const baseUser = mockUsers[userId];
 

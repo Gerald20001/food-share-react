@@ -26,7 +26,6 @@ function NewOfferPage() {
 
   // Эффект для очистки временного URL изображения, чтобы избежать утечек памяти
   useEffect(() => {
-    // Эта функция-очистка сработает, когда компонент будет "размонтирован" (убран со страницы)
     return () => {
       if (imagePreview) {
         URL.revokeObjectURL(imagePreview);
@@ -46,11 +45,9 @@ function NewOfferPage() {
     const file = e.target.files[0];
     if (file) {
       setImageFile(file);
-      // Если есть старый URL предпросмотра, очищаем его
       if (imagePreview) {
         URL.revokeObjectURL(imagePreview);
       }
-      // Создаем новый временный URL для предпросмотра
       const previewUrl = URL.createObjectURL(file);
       setImagePreview(previewUrl);
     }
@@ -59,14 +56,11 @@ function NewOfferPage() {
   // Обработчик отправки всей формы
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Простая валидация: проверяем, что фото загружено
     if (!imageFile) {
       addToast('Пожалуйста, загрузите фото', 'error');
       return;
     }
     
-    // В реальном приложении мы бы загрузили `imageFile` на сервер и получили постоянный URL.
-    // В нашем моковом варианте мы просто передаем временный URL предпросмотра дальше.
     const fullOfferData = {
       ...formData,
       imageUrl: imagePreview

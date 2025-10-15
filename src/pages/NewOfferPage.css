@@ -97,7 +97,7 @@ html.dark .file-upload-label:hover {
     background-color: var(--gray-600);
 }
 .file-upload-input {
-    display: none; /* Сам инпут мы прячем */
+    display: none; 
 }
 .image-preview {
     width: 100%;

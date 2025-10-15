@@ -1,11 +1,8 @@
-/* HomePage - Улучшенные стили */
-
 .homepage {
   width: 100%;
   overflow-x: hidden;
 }
 
-/* Общие стили секций */
 .content-section {
   width: 100%;
   max-width: 1200px;

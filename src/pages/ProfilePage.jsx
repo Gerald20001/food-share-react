@@ -27,7 +27,6 @@ function ProfilePage() {
     return <NotFoundPage />;
   }
   
-  // Для статистики и отзывов пока всегда используем mockData.
   const staticData = mockUsers[userId];
 
   return (

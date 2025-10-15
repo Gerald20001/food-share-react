@@ -1,14 +1,11 @@
 import { Link } from 'react-router-dom';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
-// 1. ИСПРАВЛЕНИЕ: Импортируем стили для макета страницы
 import './DashboardPage.css'; 
-// 2. ИСПРАВЛЕНИЕ: Импортируем стили для самой карточки
 import '../components/OfferCard/OfferCard.css'; 
 import { useOffers } from '../context/OfferContext';
 import { useAuth } from '../context/AuthContext';
 import { useTitle } from '../hooks/useTitle';
 
-// Эта внутренняя карточка использует стили из OfferCard.css
 function ClaimedOfferCard({ offer }) {
   const statusInfo = {
     Reserved: { text: 'Ожидает подтверждения', className: 'status-reserved' },

@@ -1,0 +1,36 @@
+.feature-card {
+    background-color: var(--white);
+    padding: 2rem;
+    border-radius: 1rem;
+    border: 2px solid var(--black);
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    text-align: center; /* Добавим, т.к. компонент теперь сам по себе */
+}
+.feature-card:hover {
+    transform: translateY(-5px);
+}
+html.dark .feature-card {
+    background-color: var(--gray-800);
+    border-color: var(--gray-600);
+}
+.feature-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+.feature-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--gray-900);
+}
+html.dark .feature-title {
+    color: var(--white);
+}
+.feature-description {
+    font-size: 0.875rem;
+    color: var(--gray-500);
+}
+html.dark .feature-description {
+    color: var(--gray-400);
+}

@@ -1,16 +1,15 @@
-// Импортируем картинки один раз здесь
+// Импортируем картинки
 import breadImage from '../assets/user2.png';
 import veggiesImage from '../assets/user4.png';
 import milkImage from '../assets/user3.png';
 
-// Аватары и обложки для пользователей
+// Аватары и обложки
 import user1Avatar from '../assets/user5.png';
 import user1Cover from '../assets/user3.png';
 import user2Avatar from '../assets/user2.png';
 import user2Cover from '../assets/user3.png';
 
 export const offers = [
-  // ИСПРАВЛЕНИЕ: Добавляем 'status: 'Active'' к каждому объекту
   { id: 1, userId: 1, title: 'Свежий хлеб', category: 'bakery', status: 'Active', location: "Пекарня 'Добро'", position: [49.2331, 28.4682], imageUrl: breadImage, description: 'Остатки свежего хлеба и круассанов после закрытия. Идеально для ужина.', specs: ['Тип: Выпечка', 'Количество: ~5 кг', 'Забрать до: 20:00'] },
   
   { id: 2, userId: 2, title: 'Свежие овощи', category: 'produce', status: 'Active', location: "Рынок 'Центральный'", position: [49.2300, 28.4700], imageUrl: veggiesImage, description: 'Свежие сезонные овощи от местных фермеров. В основном помидоры, огурцы и зелень.', specs: ['Тип: Овощи', 'Количество: 1 ящик', 'Забрать до: 18:00'] },
@@ -48,7 +47,7 @@ export const users = {
     name: "Иван Волонтер",
     isVerified: false,
     avatarUrl: 'https://i.pravatar.cc/150?u=volunteer',
-    coverUrl: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2940&auto=format&fit=crop', // Какая-нибудь обложка
+    coverUrl: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2940&auto=format&fit=crop', 
     description: "Помогаю сообществу в свободное время. Готов забирать еду в центральном районе.",
     // У волонтера другая статистика
     stats: { offers: 0, reviews: 3, rating: 5.0 }, 

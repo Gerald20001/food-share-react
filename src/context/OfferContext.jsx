@@ -43,7 +43,7 @@ export function OfferProvider({ children }) {
     setOffers(prevOffers =>
       prevOffers.map(offer => {
         if (offer.id === offerId) {
-          return { ...offer, status: 'Confirmed' }; // Меняем статус на "Подтверждено"
+          return { ...offer, status: 'Confirmed' }; 
         }
         return offer;
       })
@@ -54,7 +54,6 @@ export function OfferProvider({ children }) {
     setOffers(prevOffers =>
       prevOffers.map(offer => {
         if (offer.id === offerId) {
-          // Возвращаем в активное состояние и убираем информацию о том, кто запрашивал
           return { ...offer, status: 'Active', claimedBy: null };
         }
         return offer;

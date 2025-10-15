@@ -1,4 +1,3 @@
-/* --- Global Styles for the Entire Application --- */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
 
 /* --- CSS Variables --- */
@@ -20,7 +19,6 @@
     --black: #000000;
 }
 
-/* --- Base & Reset --- */
 *, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
@@ -139,7 +137,6 @@ html.dark .footer-highlight { color: var(--gray-200); }
     .features-grid { grid-template-columns: repeat(3, 1fr); gap: 2rem; }
     .feature-card { padding: 2rem; }
 }
-/* src/index.css */
 
 /* ... все твои стили ... */
 

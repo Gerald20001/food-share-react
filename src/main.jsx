@@ -39,8 +39,6 @@ const router = createBrowserRouter([
       { path: 'blog/:id', element: <BlogPost /> },
       { path: 'offer/:offerId', element: <OfferDetailsPage /> },
       
-      // ИСПРАВЛЕНИЕ: Добавляем маршрут для редактирования профиля
-      // Он должен быть ВЫШЕ, чем '/profile/:userId'
       {
         path: 'profile/edit',
         element: <ProtectedRoute><EditOfferPage /></ProtectedRoute>

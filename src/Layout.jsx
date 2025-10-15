@@ -1,13 +1,11 @@
 import React, { useState, useEffect, Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
-// Больше не нужны useNavigate и useAuth здесь
 import Header from './components/Header/Header';
 import AuthModal from './components/AuthModal/AuthModal';
 import Footer from './components/Footer/Footer';
 import Loading from './components/Loading/Loading';
 
 function Layout() {
-  // Убираем useEffect для навигации
   
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalView, setModalView] = useState('login');

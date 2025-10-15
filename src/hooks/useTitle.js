@@ -1,4 +1,3 @@
-// src/hooks/useTitle.js
 import { useEffect } from 'react';
 
 const defaultTitle = 'FoodShare | Connecting Communities';
@@ -8,7 +7,7 @@ export function useTitle(title) {
     // Устанавливаем новый заголовок, если он есть
     document.title = title ? `${title} | FoodShare` : defaultTitle;
 
-    // Функция-очистка: когда компонент исчезнет, вернем заголовок по умолчанию
+  
     return () => {
       document.title = defaultTitle;
     };

@@ -6,17 +6,13 @@ import './MapPage.css';
 
 function MapPage() {
     useTitle('Карта объявлений');
-  // Состояния для фильтров
   const [category, setCategory] = useState('all');
   const [searchLocation, setSearchLocation] = useState(null);
   
-  // ВОЗВРАЩАЕМ: Состояние для поля текстового поиска
   const [searchTerm, setSearchTerm] = useState('');
   
-  // ВОЗВРАЩАЕМ: "Отложенное" значение для умного поиска
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
   
-  // Локальные состояния для полей ввода
   const [isFilterOpen, setIsFilterOpen] = useState(window.innerWidth > 768);
   const [searchAddress, setSearchAddress] = useState('');
 
@@ -54,7 +50,6 @@ function MapPage() {
         </div>
         
         <div>
-          {/* ВОЗВРАЩАЕМ: Поле для поиска по названию */}
           <div className="filter-group">
             <label htmlFor="search">Поиск по названию</label>
             <input 
@@ -92,7 +87,6 @@ function MapPage() {
         </div>
       </aside>
 
-      {/* Передаем ВСЕ фильтры, включая searchTerm */}
       <MapComponent 
         searchLocation={searchLocation} 
         category={category}

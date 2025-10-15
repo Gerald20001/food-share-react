@@ -1,4 +1,3 @@
-/* Исправление отображения иконок маркеров */
 .leaflet-marker-icon {
     background-size: contain;
 }
